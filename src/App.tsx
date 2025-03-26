@@ -1,5 +1,4 @@
-// File: App.tsx
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import './styles.css'
@@ -11,7 +10,6 @@ interface Asset {
   percent: number
   weekly: number
   value: number
-  // Il target mensile di base (personalizzato) per questo mese
   manualMonthlyTarget: number
 }
 
@@ -22,7 +20,7 @@ interface MonthData {
   assets: Asset[]
 }
 
-// Funzione per creare il mese iniziale (puoi personalizzare i valori)
+// Funzione per creare il mese iniziale
 function createInitialMonth(id: number, name: string): MonthData {
   return {
     id,
@@ -34,7 +32,7 @@ function createInitialMonth(id: number, name: string): MonthData {
         percent: 41,
         weekly: 33,
         value: 200,
-        manualMonthlyTarget: 264, // es. 33 * 4 * 2
+        manualMonthlyTarget: 264,
       },
       {
         code: 'IE00BFNM3P36',
@@ -42,7 +40,7 @@ function createInitialMonth(id: number, name: string): MonthData {
         percent: 19,
         weekly: 15,
         value: 77,
-        manualMonthlyTarget: 120, // 15 * 4 * 2
+        manualMonthlyTarget: 120,
       },
       {
         code: 'IE00BF4RFH31',
@@ -80,37 +78,66 @@ function createInitialMonth(id: number, name: string): MonthData {
   }
 }
 
-// Budget settimanale di riferimento
 const WEEKLY_BUDGET = 80
 
 export default function App() {
-  // Stato con l'array di mesi
-  const [months, setMonths] = useState<MonthData[]>(() => {
-    const stored = localStorage.getItem('allMonths')
-    if (stored) {
-      return JSON.parse(stored) as MonthData[]
-    }
-    // Se non c'è nulla in localStorage, creiamo un mese iniziale
-    return [createInitialMonth(1, 'Aprile 2025')]
-  })
+  // Nessun localStorage
+  const [months, setMonths] = useState<MonthData[]>([
+    createInitialMonth(1, 'Aprile 2025')
+  ])
 
-  // Stato per sapere quale mese stiamo visualizzando (indice)
   const [currentMonthIndex, setCurrentMonthIndex] = useState(0)
 
-  // Salviamo i dati in localStorage ogni volta che months cambia
-  useEffect(() => {
-    localStorage.setItem('allMonths', JSON.stringify(months))
-  }, [months])
-
-  // Mese corrente
   const currentMonth = months[currentMonthIndex]
-
-  // Se non abbiamo mesi, non mostriamo nulla
   if (!currentMonth) {
     return <div>Nessun mese definito</div>
   }
 
-  // Quando l'utente cambia il valore a fine mese di un asset
+  // Handlers per aggiornare i campi modificabili
+
+  // Percentuale asset
+  const handlePercentChange = (assetIndex: number, newValue: string) => {
+    const newVal = parseFloat(newValue) || 0
+    setMonths(prev => {
+      const copy = [...prev]
+      const monthCopy = { ...copy[currentMonthIndex] }
+      const assetsCopy = [...monthCopy.assets]
+      assetsCopy[assetIndex] = { ...assetsCopy[assetIndex], percent: newVal }
+      monthCopy.assets = assetsCopy
+      copy[currentMonthIndex] = monthCopy
+      return copy
+    })
+  }
+
+  // Quota Settimanale
+  const handleWeeklyChange = (assetIndex: number, newValue: string) => {
+    const newVal = parseFloat(newValue) || 0
+    setMonths(prev => {
+      const copy = [...prev]
+      const monthCopy = { ...copy[currentMonthIndex] }
+      const assetsCopy = [...monthCopy.assets]
+      assetsCopy[assetIndex] = { ...assetsCopy[assetIndex], weekly: newVal }
+      monthCopy.assets = assetsCopy
+      copy[currentMonthIndex] = monthCopy
+      return copy
+    })
+  }
+
+  // Target Mensile
+  const handleManualMonthlyTargetChange = (assetIndex: number, newValue: string) => {
+    const newVal = parseFloat(newValue) || 0
+    setMonths(prev => {
+      const copy = [...prev]
+      const monthCopy = { ...copy[currentMonthIndex] }
+      const assetsCopy = [...monthCopy.assets]
+      assetsCopy[assetIndex] = { ...assetsCopy[assetIndex], manualMonthlyTarget: newVal }
+      monthCopy.assets = assetsCopy
+      copy[currentMonthIndex] = monthCopy
+      return copy
+    })
+  }
+
+  // Valore Fine Mese
   const handleValueChange = (assetIndex: number, newValue: string) => {
     const newVal = parseFloat(newValue) || 0
     setMonths(prev => {
@@ -124,20 +151,18 @@ export default function App() {
     })
   }
 
-  // Esempio: se vogliamo calcolare l'andamento in base a manualMonthlyTarget
+  // Funzioni di calcolo
   function getPerformance(asset: Asset): number {
     const diff = asset.value - asset.manualMonthlyTarget
     const result = (diff / asset.manualMonthlyTarget) * 100
     return Math.round(result * 10000) / 10000
   }
 
-  // Quota da versare = differenza dal manualMonthlyTarget, diviso 4
   function getToDeposit(asset: Asset): number {
     const diff = asset.manualMonthlyTarget - asset.value
     return diff <= 0 ? 0 : Math.ceil(diff / 4)
   }
 
-  // Somma su tutti gli asset del mese
   function getTotalDeposit(month: MonthData) {
     return month.assets.reduce((sum, a) => sum + getToDeposit(a), 0)
   }
@@ -150,28 +175,26 @@ export default function App() {
     return month.assets.reduce((sum, a) => sum + a.manualMonthlyTarget, 0)
   }
 
-  // Differenza settimanale: Quota da Versare - WEEKLY_BUDGET
   function getWeeklyDiff(month: MonthData) {
     return getTotalDeposit(month) - WEEKLY_BUDGET
   }
 
-  // Percentuale del singolo asset sul totale valori
+  // Arrotondiamo a 2 cifre decimali
   function getMonthlyAssetPercent(asset: Asset, month: MonthData) {
     const totalVal = getTotalValue(month)
     if (totalVal <= 0) return 0
     const fraction = (asset.value / totalVal) * 100
-    return Math.round(fraction * 10000) / 10000
+    return parseFloat(fraction.toFixed(2)) // Restituisce, ad esempio, 12.34
   }
 
-  // Aggiunge un nuovo mese, clonando i dati dal mese attuale e incrementando i target
-  // come richiesto: target nuovo mese = target attuale + weekly*4
+  // Aggiungi nuovo mese
   function addNextMonth() {
     setMonths(prev => {
-      const oldMonth = prev[currentMonthIndex]
+      const lastMonth = prev[prev.length - 1]
       const newMonth: MonthData = {
-        id: oldMonth.id + 1,
-        name: 'Mese #' + (oldMonth.id + 1),
-        assets: oldMonth.assets.map(a => ({
+        id: lastMonth.id + 1,
+        name: 'Mese #' + (lastMonth.id + 1),
+        assets: lastMonth.assets.map(a => ({
           ...a,
           manualMonthlyTarget: a.manualMonthlyTarget + a.weekly * 4,
           value: 0,
@@ -179,29 +202,24 @@ export default function App() {
       }
       return [...prev, newMonth]
     })
-    // Se vuoi passare subito al nuovo mese...
     setCurrentMonthIndex(months.length)
   }
 
-  // EXPORT in JSON (download file)
+  // Export / Import
   function exportData() {
     const dataStr = JSON.stringify(months, null, 2)
     const blob = new Blob([dataStr], { type: 'application/json' })
     const url = URL.createObjectURL(blob)
-
     const link = document.createElement('a')
     link.href = url
     link.download = 'pac-data.json'
     link.click()
-
     URL.revokeObjectURL(url)
   }
 
-  // IMPORT da file JSON
   function importDataFromFile(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0]
     if (!file) return
-
     const reader = new FileReader()
     reader.onload = e => {
       if (!e.target?.result) return
@@ -220,7 +238,6 @@ export default function App() {
     <div className="container">
       <h1 className="main-title">PAC Dashboard – Multi Mese</h1>
 
-      {/* Selettore mese */}
       <div className="month-selector">
         <label>Seleziona mese: </label>
         <select
@@ -238,7 +255,6 @@ export default function App() {
           Aggiungi Mese Successivo
         </button>
 
-        {/* Bottoni per Export / Import */}
         <button onClick={exportData} className="export-btn">Esporta JSON</button>
         <label className="import-label">
           Importa JSON
@@ -253,7 +269,6 @@ export default function App() {
 
       <h2 className="subtitle">{currentMonth.name}</h2>
 
-      {/* Griglia con i singoli asset del mese corrente */}
       <div className="assets-grid">
         {currentMonth.assets.map((asset, idx) => (
           <Card key={asset.code} className="card improved-card">
@@ -264,21 +279,40 @@ export default function App() {
               </div>
               <hr className="divider" />
 
+              {/* % Asset modificabile */}
               <div className="info-row">
-                <span className="info-label">% Asset:</span>
-                <span className="info-value">{asset.percent}%</span>
+                <label className="info-label">% Asset:</label>
+                <Input
+                  type="number"
+                  value={asset.percent}
+                  onChange={e => handlePercentChange(idx, e.target.value)}
+                  className="input custom-input"
+                />
               </div>
 
+              {/* Quota Settimanale modificabile */}
               <div className="info-row">
-                <span className="info-label">Quota Settimanale:</span>
-                <span className="info-value">€{asset.weekly}</span>
+                <label className="info-label">Quota Settimanale:</label>
+                <Input
+                  type="number"
+                  value={asset.weekly}
+                  onChange={e => handleWeeklyChange(idx, e.target.value)}
+                  className="input custom-input"
+                />
               </div>
 
+              {/* Target Mensile modificabile */}
               <div className="info-row">
-                <span className="info-label">Target Mensile:</span>
-                <span className="info-value">€{asset.manualMonthlyTarget}</span>
+                <label className="info-label">Target Mensile:</label>
+                <Input
+                  type="number"
+                  value={asset.manualMonthlyTarget}
+                  onChange={e => handleManualMonthlyTargetChange(idx, e.target.value)}
+                  className="input custom-input"
+                />
               </div>
 
+              {/* Valore Fine Mese modificabile */}
               <div className="info-row">
                 <label className="info-label">Valore Fine Mese:</label>
                 <Input
@@ -308,14 +342,15 @@ export default function App() {
               <hr className="divider" />
               <div className="info-row">
                 <span className="info-label">Peso sul Totale:</span>
-                <span className="info-value highlight">{getMonthlyAssetPercent(asset, currentMonth)}%</span>
+                <span className="info-value highlight">
+                  {getMonthlyAssetPercent(asset, currentMonth)}%
+                </span>
               </div>
             </CardContent>
           </Card>
         ))}
       </div>
 
-      {/* Riepilogo Totale per il mese corrente */}
       <Card className="card improved-card">
         <CardContent>
           <h2 className="card-title title-gradient">Riepilogo di {currentMonth.name}</h2>
@@ -330,7 +365,9 @@ export default function App() {
           </div>
           <div className="info-row">
             <span className="info-label">Quota da Versare Complessiva:</span>
-            <span className="info-value highlight">€{getTotalDeposit(currentMonth)}</span>
+            <span className="info-value highlight">
+              €{getTotalDeposit(currentMonth)}
+            </span>
           </div>
 
           <hr className="divider" />
