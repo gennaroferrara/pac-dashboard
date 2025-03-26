@@ -1,90 +1,119 @@
-/* Body & Global */
-body {
+/* --------------------------------------
+   RESET & STRUTTURA GENERALE
+-------------------------------------- */
+html, body {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(120deg, #e0e7ff 0%, #f6f7f8 100%);
   min-height: 100vh;
+  color: #374151; /* Testo di base (grigio scuro) */
 }
 
-.main-title {
-  font-size: 2.2rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 2rem;
-  text-align: center;
+body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Container */
+/* Contenitore principale */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.month-selector {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.add-month-btn {
-  background-color: #4338ca;
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-.add-month-btn:hover {
-  background-color: #4f46e5;
-}
-
-.export-btn {
-  background-color: #10b981;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-.export-btn:hover {
-  background-color: #059669;
-}
-
-.import-label {
-  background-color: #f59e0b;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-.import-label:hover {
-  background-color: #d97706;
-}
-
-.import-label input {
-  display: none;
+/* --------------------------------------
+   TITOLI E TESTI
+-------------------------------------- */
+.main-title {
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: 700;
 }
 
 .subtitle {
   font-size: 1.4rem;
   font-weight: 600;
   margin-bottom: 1rem;
+  text-transform: capitalize;
 }
 
-/* Griglia a 3 colonne */
+/* --------------------------------------
+   SELETTORE DEL MESE E BOTTONI
+-------------------------------------- */
+.month-selector {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.month-selector select {
+  padding: 0.4rem;
+  font-size: 1rem;
+}
+
+button, .import-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  transition: background-color 0.2s, opacity 0.2s;
+}
+
+/* Aggiungi Mese */
+.add-month-btn {
+  background-color: #4338ca;
+  color: #fff;
+}
+.add-month-btn:hover {
+  background-color: #4f46e5;
+}
+
+/* Esporta JSON */
+.export-btn {
+  background-color: #10b981;
+  color: #fff;
+}
+.export-btn:hover {
+  background-color: #059669;
+}
+
+/* Importa JSON */
+.import-label {
+  background-color: #f59e0b;
+  color: #fff;
+}
+.import-label:hover {
+  background-color: #d97706;
+}
+.import-label input {
+  display: none;
+}
+
+/* --------------------------------------
+   GRIGLIA ASSET (CARD)
+-------------------------------------- */
 .assets-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   margin-bottom: 2rem;
 }
+
 @media (max-width: 900px) {
   .assets-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -96,7 +125,9 @@ body {
   }
 }
 
-/* Card */
+/* --------------------------------------
+   CARD
+-------------------------------------- */
 .card {
   background: #ffffff;
   border: 1px solid #e5e7eb;
@@ -109,31 +140,32 @@ body {
 .card:hover {
   transform: translateY(-3px);
 }
+
 .improved-card {
   border-left: 6px solid #4338ca;
 }
 
-.improved-header {
+/* Header della card (titolo + sottotitolo) */
+.card-header {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+.card-header .card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+.card-header .card-subtitle {
+  font-size: 0.9rem;
+  color: #6b7280;
 }
 
+/* Titolo colorato in gradiente */
 .title-gradient {
   background: linear-gradient(90deg, #4338ca 0%, #9333ea 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-.card-title {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #374151;
-}
-
-.card-subtitle {
-  font-size: 0.9rem;
-  color: #6b7280;
 }
 
 .divider {
@@ -143,7 +175,7 @@ body {
   margin: 1rem 0;
 }
 
-/* Info Rows */
+/* Righe info (label + value) */
 .info-row {
   display: flex;
   justify-content: space-between;
@@ -153,6 +185,7 @@ body {
 .info-label {
   font-size: 0.9rem;
   color: #6b7280;
+  margin-right: 0.5rem;
 }
 .info-value {
   font-size: 1rem;
@@ -163,7 +196,9 @@ body {
   color: #1e3a8a;
 }
 
-/* Inputs */
+/* --------------------------------------
+   INPUT STILE
+-------------------------------------- */
 .input {
   width: 100%;
   padding: 0.45rem;
@@ -180,4 +215,83 @@ body {
 }
 .custom-input {
   max-width: 120px;
+}
+
+/* --------------------------------------
+   MODALE
+-------------------------------------- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; /* in primo piano */
+}
+
+.modal-content {
+  background: #ffffff;
+  padding: 1.5rem 2rem;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.modal-content h2 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: #374151;
+  font-weight: 700;
+}
+
+/* Label e input nella modale */
+.modal-content label {
+  font-weight: 500;
+  margin: 0.5rem 0 0.2rem;
+  display: block;
+  color: #374151;
+}
+.modal-content .input {
+  margin-left: 0; /* Non vogliamo lo spostamento a sinistra qui */
+  width: 100%;
+}
+
+/* Container bottoni in basso nella modale */
+.modal-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+
+.modal-buttons button {
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+/* Conferma */
+.modal-buttons .confirm-button {
+  background-color: #4338ca;
+  color: #fff;
+}
+.modal-buttons .confirm-button:hover {
+  background-color: #4f46e5;
+}
+
+/* Annulla */
+.modal-buttons .cancel-button {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+.modal-buttons .cancel-button:hover {
+  background-color: #d1d5db;
 }

@@ -1,23 +1,26 @@
-// MonthSummaryCard.tsx
+// src/components/MonthSummaryCard.tsx
+
+import React from 'react'
 import { Card, CardContent } from '@/components/ui/card'
-import { MonthData } from '../types'
+import { MonthData } from '@/types'
 
 interface MonthSummaryCardProps {
   currentMonth: MonthData
+  WEEKLY_BUDGET: number
+
   getTotalValue: (m: MonthData) => number
   getTotalManualTarget: (m: MonthData) => number
   getTotalDeposit: (m: MonthData) => number
   getWeeklyDiff: (m: MonthData) => number
-  WEEKLY_BUDGET: number
 }
 
 export function MonthSummaryCard({
   currentMonth,
+  WEEKLY_BUDGET,
   getTotalValue,
   getTotalManualTarget,
   getTotalDeposit,
-  getWeeklyDiff,
-  WEEKLY_BUDGET
+  getWeeklyDiff
 }: MonthSummaryCardProps) {
 
   return (
@@ -38,9 +41,7 @@ export function MonthSummaryCard({
 
         <div className="info-row">
           <span className="info-label">Quota da Versare Complessiva:</span>
-          <span className="info-value highlight">
-            €{getTotalDeposit(currentMonth)}
-          </span>
+          <span className="info-value highlight">€{getTotalDeposit(currentMonth)}</span>
         </div>
 
         <hr className="divider" />

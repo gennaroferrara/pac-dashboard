@@ -1,14 +1,15 @@
-// MonthSelector.tsx
+// src/components/MonthSelector.tsx
 import React from 'react'
-import { MonthData } from '../types'
+import { MonthData } from '@/types'
 
 interface MonthSelectorProps {
   months: MonthData[]
   currentMonthIndex: number
-  onChangeMonthIndex: (newIndex: number) => void
+  onChangeMonthIndex: (index: number) => void
   onAddNextMonth: () => void
-  onExport: () => void
-  onImport: (event: React.ChangeEvent<HTMLInputElement>) => void
+  onAddAssetModalOpen: () => void
+  onExportData: () => void
+  onImportDataFromFile: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export function MonthSelector({
@@ -16,8 +17,9 @@ export function MonthSelector({
   currentMonthIndex,
   onChangeMonthIndex,
   onAddNextMonth,
-  onExport,
-  onImport
+  onAddAssetModalOpen,
+  onExportData,
+  onImportDataFromFile
 }: MonthSelectorProps) {
 
   return (
@@ -38,13 +40,21 @@ export function MonthSelector({
         Aggiungi Mese Successivo
       </button>
 
-      <button onClick={onExport} className="export-btn">Esporta JSON</button>
+      {/* Bottone per aprire la modale di creazione asset */}
+      <button onClick={onAddAssetModalOpen}>
+        Aggiungi Asset
+      </button>
+
+      <button onClick={onExportData} className="export-btn">
+        Esporta JSON
+      </button>
+
       <label className="import-label">
         Importa JSON
         <input
           type="file"
           accept=".json"
-          onChange={onImport}
+          onChange={onImportDataFromFile}
           style={{ display: 'none' }}
         />
       </label>
