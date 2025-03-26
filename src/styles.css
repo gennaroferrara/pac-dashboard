@@ -31,14 +31,45 @@ body {
 
 .add-month-btn {
   background-color: #4338ca;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.add-month-btn:hover {
+  background-color: #4f46e5;
+}
+
+.export-btn {
+  background-color: #10b981;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.2s;
 }
-.add-month-btn:hover {
-  background-color: #4f46e5;
+.export-btn:hover {
+  background-color: #059669;
+}
+
+.import-label {
+  background-color: #f59e0b;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.import-label:hover {
+  background-color: #d97706;
+}
+
+.import-label input {
+  display: none;
 }
 
 .subtitle {

@@ -126,8 +126,6 @@ export default function App() {
 
   // Esempio: se vogliamo calcolare l'andamento in base a manualMonthlyTarget
   function getPerformance(asset: Asset): number {
-    // differenza tra il valore attuale e la metà del target? O 4 settimane?
-    // Dipende dalla tua logica. Qui usiamo manualMonthlyTarget come base
     const diff = asset.value - asset.manualMonthlyTarget
     const result = (diff / asset.manualMonthlyTarget) * 100
     return Math.round(result * 10000) / 10000
@@ -175,16 +173,47 @@ export default function App() {
         name: 'Mese #' + (oldMonth.id + 1),
         assets: oldMonth.assets.map(a => ({
           ...a,
-          // Esempio: incrementa manualMonthlyTarget di weekly*4
           manualMonthlyTarget: a.manualMonthlyTarget + a.weekly * 4,
-          // se vuoi azzerare il value per il nuovo mese
           value: 0,
         })),
       }
       return [...prev, newMonth]
     })
     // Se vuoi passare subito al nuovo mese...
-    setCurrentMonthIndex(months.length) // perché l'abbiamo appena aggiunto in coda
+    setCurrentMonthIndex(months.length)
+  }
+
+  // EXPORT in JSON (download file)
+  function exportData() {
+    const dataStr = JSON.stringify(months, null, 2)
+    const blob = new Blob([dataStr], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+
+    const link = document.createElement('a')
+    link.href = url
+    link.download = 'pac-data.json'
+    link.click()
+
+    URL.revokeObjectURL(url)
+  }
+
+  // IMPORT da file JSON
+  function importDataFromFile(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    const reader = new FileReader()
+    reader.onload = e => {
+      if (!e.target?.result) return
+      try {
+        const parsed = JSON.parse(e.target.result as string) as MonthData[]
+        setMonths(parsed)
+        setCurrentMonthIndex(0)
+      } catch (err) {
+        alert('File JSON non valido!')
+      }
+    }
+    reader.readAsText(file)
   }
 
   return (
@@ -208,6 +237,18 @@ export default function App() {
         <button onClick={addNextMonth} className="add-month-btn">
           Aggiungi Mese Successivo
         </button>
+
+        {/* Bottoni per Export / Import */}
+        <button onClick={exportData} className="export-btn">Esporta JSON</button>
+        <label className="import-label">
+          Importa JSON
+          <input
+            type="file"
+            accept=".json"
+            onChange={importDataFromFile}
+            style={{ display: 'none' }}
+          />
+        </label>
       </div>
 
       <h2 className="subtitle">{currentMonth.name}</h2>
