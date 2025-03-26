@@ -230,6 +230,15 @@ export default function App() {
     return parseFloat(fraction.toFixed(2))
   }
 
+  function getValuePercentOfMonth(asset: Asset, month: MonthData): number {
+    const totalVal = getTotalValue(month) // esiste già
+    if (totalVal <= 0) return 0
+    const fraction = (asset.value / totalVal) * 100
+    // Arrotondiamo a 2 cifre decimali
+    return parseFloat(fraction.toFixed(2))
+  }
+  
+
   // -----------------------
   // EXPORT / IMPORT
   // -----------------------
@@ -292,6 +301,8 @@ export default function App() {
         getPerformance={getPerformance}
         getToDeposit={getToDeposit}
         getAssetPercentOfMonthTarget={getAssetPercentOfMonthTarget}
+        getValuePercentOfMonth={getValuePercentOfMonth}
+
       />
 
       {/* Riepilogo Mese */}

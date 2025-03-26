@@ -88,7 +88,7 @@ export function AssetCard({
 
         <hr className="divider" />
         <div className="info-row">
-          <span className="info-label">Andamento:</span>
+          <span className="info-label">% Da compensare:</span>
           <span
             className="info-value"
             style={{ color: getPerformance(asset) < 0 ? '#dc2626' : '#16a34a' }}

@@ -8,11 +8,12 @@ interface AssetListProps {
   onManualMonthlyTargetChange: (assetIndex: number, newVal: string) => void
   onValueChange: (assetIndex: number, newVal: string) => void
   onRemoveAsset: (assetIndex: number) => void
-  
+
   // Funzioni di calcolo
   getPerformance: (asset: Asset) => number
   getToDeposit: (asset: Asset) => number
   getAssetPercentOfMonthTarget: (asset: Asset, month: MonthData) => number
+  getValuePercentOfMonth: (asset: Asset, month: MonthData) => number
 }
 
 export function AssetList({
@@ -23,7 +24,8 @@ export function AssetList({
   onRemoveAsset,
   getPerformance,
   getToDeposit,
-  getAssetPercentOfMonthTarget
+  getAssetPercentOfMonthTarget,
+  getValuePercentOfMonth
 }: AssetListProps) {
 
   return (
@@ -41,7 +43,6 @@ export function AssetList({
             </div>
             <hr className="divider" />
 
-            {/* Quota Settimanale */}
             <div className="info-row">
               <label className="info-label">Quota Settimanale:</label>
               <Input
@@ -52,7 +53,6 @@ export function AssetList({
               />
             </div>
 
-            {/* Target Mensile */}
             <div className="info-row">
               <label className="info-label">Target Mensile:</label>
               <Input
@@ -63,7 +63,6 @@ export function AssetList({
               />
             </div>
 
-            {/* Valore Fine Mese */}
             <div className="info-row">
               <label className="info-label">Valore Fine Mese:</label>
               <Input
@@ -78,15 +77,23 @@ export function AssetList({
 
             {/* % Asset (basata sul target) */}
             <div className="info-row">
-              <span className="info-label">% Asset:</span>
+              <span className="info-label">% Asset (Target):</span>
               <span className="info-value">
                 {getAssetPercentOfMonthTarget(asset, currentMonth)}%
               </span>
             </div>
 
+            {/* NUOVA: % basata sul Valore Fine Mese sul totale del mese */}
+            <div className="info-row">
+              <span className="info-label">% Valore Fine Mese:</span>
+              <span className="info-value">
+                {getValuePercentOfMonth(asset, currentMonth)}%
+              </span>
+            </div>
+
             {/* Andamento */}
             <div className="info-row">
-              <span className="info-label">Andamento:</span>
+              <span className="info-label">% Da compensare:</span>
               <span
                 className="info-value"
                 style={{ color: getPerformance(asset) < 0 ? '#dc2626' : '#16a34a' }}
@@ -98,10 +105,11 @@ export function AssetList({
             {/* Da Versare */}
             <div className="info-row">
               <span className="info-label">Da Versare:</span>
-              <span className="info-value highlight">€{getToDeposit(asset)}</span>
+              <span className="info-value highlight">
+                €{getToDeposit(asset)}
+              </span>
             </div>
 
-            {/* Bottone rimuovi */}
             <hr className="divider" />
             <button onClick={() => onRemoveAsset(idx)} style={{ marginTop: '8px' }}>
               Rimuovi Asset
