@@ -1,0 +1,326 @@
+[
+  {
+    "id": 1,
+    "name": "Aprile 2025",
+    "assets": [
+      {
+        "code": "IE00B4L5Y983",
+        "name": "Core MSCI World",
+        "percent": 41,
+        "weekly": 33,
+        "value": 133,
+        "manualMonthlyTarget": 264
+      },
+      {
+        "code": "IE00BFNM3P36",
+        "name": "MSCI EM IMI ESG",
+        "percent": 19,
+        "weekly": 15,
+        "value": 70,
+        "manualMonthlyTarget": 120
+      },
+      {
+        "code": "IE00BF4RFH31",
+        "name": "MSCI World Small Cap",
+        "percent": 14,
+        "weekly": 11,
+        "value": 60,
+        "manualMonthlyTarget": 88
+      },
+      {
+        "code": "IE00B3WJKG14",
+        "name": "S&P 500 Info Tech",
+        "percent": 9,
+        "weekly": 7,
+        "value": 30,
+        "manualMonthlyTarget": 56
+      },
+      {
+        "code": "IE00BYZK4552",
+        "name": "Automation & Robotics",
+        "percent": 9,
+        "weekly": 7,
+        "value": 19,
+        "manualMonthlyTarget": 56
+      },
+      {
+        "code": "IE00BYXG2H39",
+        "name": "NASDAQ USD Biotechnology",
+        "percent": 9,
+        "weekly": 7,
+        "value": 0,
+        "manualMonthlyTarget": 56
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Mese #2",
+    "assets": [
+      {
+        "code": "IE00B4L5Y983",
+        "name": "Core MSCI World",
+        "percent": 41,
+        "weekly": 33,
+        "value": 0,
+        "manualMonthlyTarget": 396
+      },
+      {
+        "code": "IE00BFNM3P36",
+        "name": "MSCI EM IMI ESG",
+        "percent": 19,
+        "weekly": 15,
+        "value": 0,
+        "manualMonthlyTarget": 180
+      },
+      {
+        "code": "IE00BF4RFH31",
+        "name": "MSCI World Small Cap",
+        "percent": 14,
+        "weekly": 11,
+        "value": 0,
+        "manualMonthlyTarget": 132
+      },
+      {
+        "code": "IE00B3WJKG14",
+        "name": "S&P 500 Info Tech",
+        "percent": 9,
+        "weekly": 7,
+        "value": 0,
+        "manualMonthlyTarget": 84
+      },
+      {
+        "code": "IE00BYZK4552",
+        "name": "Automation & Robotics",
+        "percent": 9,
+        "weekly": 7,
+        "value": 0,
+        "manualMonthlyTarget": 84
+      },
+      {
+        "code": "IE00BYXG2H39",
+        "name": "NASDAQ USD Biotechnology",
+        "percent": 9,
+        "weekly": 7,
+        "value": 0,
+        "manualMonthlyTarget": 84
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Mese #3",
+    "assets": [
+      {
+        "code": "IE00B4L5Y983",
+        "name": "Core MSCI World",
+        "percent": 41,
+        "weekly": 33,
+        "value": 0,
+        "manualMonthlyTarget": 528
+      },
+      {
+        "code": "IE00BFNM3P36",
+        "name": "MSCI EM IMI ESG",
+        "percent": 19,
+        "weekly": 15,
+        "value": 0,
+        "manualMonthlyTarget": 240
+      },
+      {
+        "code": "IE00BF4RFH31",
+        "name": "MSCI World Small Cap",
+        "percent": 14,
+        "weekly": 11,
+        "value": 0,
+        "manualMonthlyTarget": 176
+      },
+      {
+        "code": "IE00B3WJKG14",
+        "name": "S&P 500 Info Tech",
+        "percent": 9,
+        "weekly": 7,
+        "value": 0,
+        "manualMonthlyTarget": 112
+      },
+      {
+        "code": "IE00BYZK4552",
+        "name": "Automation & Robotics",
+        "percent": 9,
+        "weekly": 7,
+        "value": 0,
+        "manualMonthlyTarget": 112
+      },
+      {
+        "code": "IE00BYXG2H39",
+        "name": "NASDAQ USD Biotechnology",
+        "percent": 9,
+        "weekly": 7,
+        "value": 0,
+        "manualMonthlyTarget": 112
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Mese #4",
+    "assets": [
+      {
+        "code": "IE00B4L5Y983",
+        "name": "Core MSCI World",
+        "percent": 41,
+        "weekly": 33,
+        "value": 0,
+        "manualMonthlyTarget": 660
+      },
+      {
+        "code": "IE00BFNM3P36",
+        "name": "MSCI EM IMI ESG",
+        "percent": 19,
+        "weekly": 15,
+        "value": 0,
+        "manualMonthlyTarget": 300
+      },
+      {
+        "code": "IE00BF4RFH31",
+        "name": "MSCI World Small Cap",
+        "percent": 14,
+        "weekly": 11,
+        "value": 0,
+        "manualMonthlyTarget": 220
+      },
+      {
+        "code": "IE00B3WJKG14",
+        "name": "S&P 500 Info Tech",
+        "percent": 9,
+        "weekly": 7,
+        "value": 0,
+        "manualMonthlyTarget": 140
+      },
+      {
+        "code": "IE00BYZK4552",
+        "name": "Automation & Robotics",
+        "percent": 9,
+        "weekly": 7,
+        "value": 0,
+        "manualMonthlyTarget": 140
+      },
+      {
+        "code": "IE00BYXG2H39",
+        "name": "NASDAQ USD Biotechnology",
+        "percent": 9,
+        "weekly": 7,
+        "value": 0,
+        "manualMonthlyTarget": 140
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Mese #5",
+    "assets": [
+      {
+        "code": "IE00B4L5Y983",
+        "name": "Core MSCI World",
+        "percent": 41,
+        "weekly": 33,
+        "value": 0,
+        "manualMonthlyTarget": 792
+      },
+      {
+        "code": "IE00BFNM3P36",
+        "name": "MSCI EM IMI ESG",
+        "percent": 19,
+        "weekly": 15,
+        "value": 0,
+        "manualMonthlyTarget": 360
+      },
+      {
+        "code": "IE00BF4RFH31",
+        "name": "MSCI World Small Cap",
+        "percent": 14,
+        "weekly": 11,
+        "value": 0,
+        "manualMonthlyTarget": 264
+      },
+      {
+        "code": "IE00B3WJKG14",
+        "name": "S&P 500 Info Tech",
+        "percent": 9,
+        "weekly": 7,
+        "value": 0,
+        "manualMonthlyTarget": 168
+      },
+      {
+        "code": "IE00BYZK4552",
+        "name": "Automation & Robotics",
+        "percent": 9,
+        "weekly": 7,
+        "value": 0,
+        "manualMonthlyTarget": 168
+      },
+      {
+        "code": "IE00BYXG2H39",
+        "name": "NASDAQ USD Biotechnology",
+        "percent": 9,
+        "weekly": 7,
+        "value": 0,
+        "manualMonthlyTarget": 168
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Mese #6",
+    "assets": [
+      {
+        "code": "IE00B4L5Y983",
+        "name": "Core MSCI World",
+        "percent": 41,
+        "weekly": 33,
+        "value": 0,
+        "manualMonthlyTarget": 924
+      },
+      {
+        "code": "IE00BFNM3P36",
+        "name": "MSCI EM IMI ESG",
+        "percent": 19,
+        "weekly": 15,
+        "value": 0,
+        "manualMonthlyTarget": 420
+      },
+      {
+        "code": "IE00BF4RFH31",
+        "name": "MSCI World Small Cap",
+        "percent": 14,
+        "weekly": 11,
+        "value": 0,
+        "manualMonthlyTarget": 308
+      },
+      {
+        "code": "IE00B3WJKG14",
+        "name": "S&P 500 Info Tech",
+        "percent": 9,
+        "weekly": 7,
+        "value": 0,
+        "manualMonthlyTarget": 196
+      },
+      {
+        "code": "IE00BYZK4552",
+        "name": "Automation & Robotics",
+        "percent": 9,
+        "weekly": 7,
+        "value": 0,
+        "manualMonthlyTarget": 196
+      },
+      {
+        "code": "IE00BYXG2H39",
+        "name": "NASDAQ USD Biotechnology",
+        "percent": 9,
+        "weekly": 7,
+        "value": 0,
+        "manualMonthlyTarget": 196
+      }
+    ]
+  }
+]
