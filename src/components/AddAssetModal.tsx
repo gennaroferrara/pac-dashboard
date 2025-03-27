@@ -1,6 +1,6 @@
 // src/components/AddAssetModal.tsx
 
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Input } from '@/components/ui/input'
 
 // Props: un booleano "isOpen" per dire se la modale è aperta o chiusa,

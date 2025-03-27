@@ -47,7 +47,7 @@ export function AssetCard({
           <label className="info-label">% Asset:</label>
           <Input
             type="number"
-            value={asset.percent}
+            value={asset.weekly}
             onChange={e => onPercentChange(assetIndex, e.target.value)}
             className="input custom-input"
           />

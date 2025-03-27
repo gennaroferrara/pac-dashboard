@@ -328,9 +328,9 @@ export default function App() {
                 nameKey="name"
                 cx="50%"
                 cy="50%"
-                outerRadius={120}
+                outerRadius={90}
               >
-                {currentMonth.assets.map((entry, index) => (
+                {currentMonth.assets.map((_entry, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
