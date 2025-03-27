@@ -150,30 +150,54 @@ export default function App() {
     })
   }
 
-  // Handler per i campi di un asset
   function handleWeeklyChange(assetIndex: number, newVal: string) {
-    const parsed = parseFloat(newVal) || 0
     setMonths(prev => {
       const copy = [...prev]
       const monthCopy = { ...copy[currentMonthIndex] }
       const assetsCopy = [...monthCopy.assets]
-      assetsCopy[assetIndex] = { ...assetsCopy[assetIndex], weekly: parsed }
+  
+      const asset = { ...assetsCopy[assetIndex] }
+  
+      const oldWeekly = asset.weekly
+      const oldMonthlyTarget = asset.manualMonthlyTarget
+  
+      const newWeekly = parseFloat(newVal) || 0
+      // Calcoliamo la differenza
+      const diff = newWeekly - oldWeekly
+      // Aggiorniamo il target mensile di conseguenza
+      const newMonthlyTarget = oldMonthlyTarget + diff * 4
+  
+      asset.weekly = newWeekly
+      asset.manualMonthlyTarget = newMonthlyTarget
+  
+      assetsCopy[assetIndex] = asset
       monthCopy.assets = assetsCopy
       copy[currentMonthIndex] = monthCopy
       return copy
     })
   }
-
+  
   function handleManualMonthlyTargetChange(assetIndex: number, newVal: string) {
-    const parsed = parseFloat(newVal) || 0
     setMonths(prev => {
       const copy = [...prev]
       const monthCopy = { ...copy[currentMonthIndex] }
       const assetsCopy = [...monthCopy.assets]
-      assetsCopy[assetIndex] = {
-        ...assetsCopy[assetIndex],
-        manualMonthlyTarget: parsed
-      }
+  
+      const asset = { ...assetsCopy[assetIndex] }
+  
+      const oldMonthlyTarget = asset.manualMonthlyTarget
+      const oldWeekly = asset.weekly
+  
+      const newMonthlyTarget = parseFloat(newVal) || 0
+      // Calcoliamo la differenza
+      const diff = newMonthlyTarget - oldMonthlyTarget
+      // Aggiorniamo la quota settimanale di conseguenza
+      const newWeekly = oldWeekly + diff / 4
+  
+      asset.manualMonthlyTarget = newMonthlyTarget
+      asset.weekly = newWeekly
+  
+      assetsCopy[assetIndex] = asset
       monthCopy.assets = assetsCopy
       copy[currentMonthIndex] = monthCopy
       return copy
