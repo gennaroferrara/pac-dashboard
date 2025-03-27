@@ -8,6 +8,7 @@ import { AddAssetModal } from '@/components/AddAssetModal'
 import { MonthSelector } from '@/components/MonthSelector'
 import { AssetList } from '@/components/AssetList'
 import { MonthSummaryCard } from '@/components/MonthSummaryCard'
+import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
 // Funzione per creare un mese iniziale
 function createInitialMonth(id: number, name: string): MonthData {
@@ -270,6 +271,7 @@ export default function App() {
     }
     reader.readAsText(file)
   }
+  const COLORS = ['black', 'black', 'black', 'black', 'black', 'black'];
 
   // ---------------
   // RENDER
@@ -315,6 +317,44 @@ export default function App() {
         getWeeklyDiff={getWeeklyDiff}
       />
 
+      <div className="charts-container">
+        <div className="chart-wrapper">
+          <h3>Distribuzione Target Mensile</h3>
+          <ResponsiveContainer width="100%" height={350}>
+            <PieChart>
+              <Pie
+                data={currentMonth.assets}
+                dataKey="manualMonthlyTarget"
+                nameKey="name"
+                cx="50%"
+                cy="50%"
+                outerRadius={120}
+              >
+                {currentMonth.assets.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div className="chart-wrapper">
+          <h3>Confronto Valore vs Target</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={currentMonth.assets}>
+              <XAxis dataKey="name" hide />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="value" name="Valore Attuale" fill="lightgreen" />
+              <Bar dataKey="manualMonthlyTarget" name="Target Mensile" fill="green" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+      
       {/* Modale per Aggiunta Asset */}
       <AddAssetModal
         isOpen={showModal}
@@ -324,3 +364,6 @@ export default function App() {
     </div>
   )
 }
+
+
+
